@@ -23,13 +23,13 @@ func Test_parseNetIPSocketLine(t *testing.T) {
 	tests := []struct {
 		fields  []string
 		name    string
-		want    *netIPSocketLine
+		want    *NetIPSocketLine
 		wantErr bool
 	}{
 		{
 			name:   "reading valid lines, no issue should happened",
 			fields: []string{"11:", "00000000:0000", "00000000:0000", "0A", "00000017:0000002A", "0:0", "0", "1000", "0", "39309"},
-			want: &netIPSocketLine{
+			want: &NetIPSocketLine{
 				Sl:        11,
 				LocalAddr: net.IP{0, 0, 0, 0},
 				LocalPort: 0,

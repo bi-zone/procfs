@@ -15,7 +15,7 @@ package procfs
 
 type (
 	// NetTCP represents the contents of /proc/net/tcp{,6} file without the header.
-	NetTCP []*netIPSocketLine
+	NetTCP []*NetIPSocketLine
 
 	// NetTCPSummary provides already computed values like the total queue lengths or
 	// the total number of used sockets. In contrast to NetTCP it does not collect

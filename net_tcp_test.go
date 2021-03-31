@@ -29,8 +29,8 @@ func Test_newNetTCP(t *testing.T) {
 		{
 			name: "tcp file found, no error should come up",
 			file: "fixtures/proc/net/tcp",
-			want: []*netIPSocketLine{
-				&netIPSocketLine{
+			want: []*NetIPSocketLine{
+				&NetIPSocketLine{
 					Sl:        0,
 					LocalAddr: net.IP{10, 0, 0, 5},
 					LocalPort: 22,
@@ -42,7 +42,7 @@ func Test_newNetTCP(t *testing.T) {
 					UID:       0,
 					Inode:     2740,
 				},
-				&netIPSocketLine{
+				&NetIPSocketLine{
 					Sl:        1,
 					LocalAddr: net.IP{0, 0, 0, 0},
 					LocalPort: 22,
@@ -54,7 +54,7 @@ func Test_newNetTCP(t *testing.T) {
 					UID:       0,
 					Inode:     2740,
 				},
-				&netIPSocketLine{
+				&NetIPSocketLine{
 					Sl:        2,
 					LocalAddr: net.IP{0, 0, 0, 0},
 					LocalPort: 22,
@@ -72,8 +72,8 @@ func Test_newNetTCP(t *testing.T) {
 		{
 			name: "tcp6 file found, no error should come up",
 			file: "fixtures/proc/net/tcp6",
-			want: []*netIPSocketLine{
-				&netIPSocketLine{
+			want: []*NetIPSocketLine{
+				&NetIPSocketLine{
 					Sl:        1315,
 					LocalAddr: net.IP{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 					LocalPort: 5355,
@@ -85,7 +85,7 @@ func Test_newNetTCP(t *testing.T) {
 					UID:       981,
 					Inode:     21040,
 				},
-				&netIPSocketLine{
+				&NetIPSocketLine{
 					Sl:        6073,
 					LocalAddr: net.IP{254, 128, 0, 0, 0, 0, 0, 0, 86, 225, 173, 255, 254, 124, 102, 9},
 					LocalPort: 51073,

@@ -15,7 +15,7 @@ package procfs
 
 type (
 	// NetUDP represents the contents of /proc/net/udp{,6} file without the header.
-	NetUDP []*netIPSocketLine
+	NetUDP []*NetIPSocketLine
 
 	// NetUDPSummary provides already computed values like the total queue lengths or
 	// the total number of used sockets. In contrast to NetUDP it does not collect

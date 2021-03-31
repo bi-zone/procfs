@@ -37,7 +37,7 @@ const (
 // this contains generic data structures for both udp and tcp sockets
 type (
 	// NetIPSocket represents the contents of /proc/net/{t,u}dp{,6} file without the header.
-	NetIPSocket []*netIPSocketLine
+	NetIPSocket []*NetIPSocketLine
 
 	// NetIPSocketSummary provides already computed values like the total queue lengths or
 	// the total number of used sockets. In contrast to NetIPSocket it does not collect
@@ -52,10 +52,10 @@ type (
 		UsedSockets uint64
 	}
 
-	// netIPSocketLine represents the fields parsed from a single line
+	// NetIPSocketLine represents the fields parsed from a single line
 	// in /proc/net/{t,u}dp{,6}. Fields which are not used by IPSocket are skipped.
 	// For the proc file format details, see https://linux.die.net/man/5/proc.
-	netIPSocketLine struct {
+	NetIPSocketLine struct {
 		Sl        uint64
 		LocalAddr net.IP
 		LocalPort uint64
@@ -149,8 +149,8 @@ func parseIP(hexIP string) (net.IP, error) {
 }
 
 // parseNetIPSocketLine parses a single line, represented by a list of fields.
-func parseNetIPSocketLine(fields []string) (*netIPSocketLine, error) {
-	line := &netIPSocketLine{}
+func parseNetIPSocketLine(fields []string) (*NetIPSocketLine, error) {
+	line := &NetIPSocketLine{}
 	if len(fields) < 10 {
 		return nil, fmt.Errorf(
 			"cannot parse net socket line as it has less then 10 columns %q",
