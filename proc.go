@@ -234,6 +234,15 @@ func (p Proc) FileDescriptorTargets() ([]string, error) {
 	return targets, nil
 }
 
+// FileDescriptorTarget returns the target of file descriptor with number fdNumber.
+func (p Proc) FileDescriptorTarget(fdNumber uint64) (string, error) {
+	target, err := os.Readlink(p.path("fd", strconv.FormatUint(fdNumber, 10)))
+	if err != nil {
+		return "", fmt.Errorf("failed to resolve file desriptor %d; %w", fdNumber, err)
+	}
+	return target, nil
+}
+
 // FileDescriptorsLen returns the number of currently open file descriptors of
 // a process.
 func (p Proc) FileDescriptorsLen() (int, error) {
