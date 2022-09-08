@@ -393,7 +393,7 @@ func TestMountStats(t *testing.T) {
 			t.Error("expected an error, but none occurred")
 		}
 		if !tt.invalid && err != nil {
-			t.Errorf("unexpected error: %w", err)
+			t.Errorf("unexpected error: %v", err)
 		}
 
 		if want, have := tt.mounts, mounts; !reflect.DeepEqual(want, have) {
@@ -418,7 +418,7 @@ func mountsStr(mounts []*Mount) string {
 		out += fmt.Sprintf("\n\t- bytes: %v", stats.Bytes)
 		out += fmt.Sprintf("\n\t- events: %v", stats.Events)
 		out += fmt.Sprintf("\n\t- transport: %v", stats.Transport)
-		out += fmt.Sprintf("\n\t- per-operation stats:")
+		out += "\n\t- per-operation stats:"
 
 		for _, o := range stats.Operations {
 			out += fmt.Sprintf("\n\t\t- %v", o)
@@ -434,7 +434,7 @@ func TestMountStatsExtendedOperationStats(t *testing.T) {
 	r := strings.NewReader(extendedOpsExampleMountstats)
 	_, err := parseMountStats(r)
 	if err != nil {
-		t.Errorf("failed to parse mount stats with extended per-op statistics: %w", err)
+		t.Errorf("failed to parse mount stats with extended per-op statistics: %v", err)
 	}
 }
 

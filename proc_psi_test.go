@@ -19,7 +19,7 @@ import (
 )
 
 func TestPSIStats(t *testing.T) {
-	t.Run("fake", func(*testing.T) {
+	t.Run("fake", func(t *testing.T) {
 		stats, err := getProcFixtures(t).PSIStatsForResource("fake")
 		if err == nil {
 			t.Fatal("fake resource does not have PSI statistics")
@@ -107,7 +107,7 @@ func TestPSIStats(t *testing.T) {
 	}
 }
 
-// TestParsePSIStats tests the edge cases that we won't run into when running TestPSIStats
+// TestParsePSIStats tests the edge cases that we won't run into when running TestPSIStats.
 func TestParsePSIStats(t *testing.T) {
 	t.Run("unknown measurement type", func(t *testing.T) {
 		raw := "nonesense haha test=fake"

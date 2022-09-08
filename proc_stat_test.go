@@ -14,6 +14,7 @@
 package procfs
 
 import (
+	"math"
 	"os"
 	"testing"
 )
@@ -29,6 +30,7 @@ func TestProcStat(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// pid stat int fields
 	for _, test := range []struct {
 		name string
 		want int
@@ -40,6 +42,60 @@ func TestProcStat(t *testing.T) {
 		{name: "start time", want: 82375, have: int(s.Starttime)},
 		{name: "virtual memory size", want: 56274944, have: int(s.VSize)},
 		{name: "resident set size", want: 1981, have: s.RSS},
+	} {
+		if test.want != test.have {
+			t.Errorf("want %s %d, have %d", test.name, test.want, test.have)
+		}
+	}
+
+	// pid stat uint64 fields
+	for _, test := range []struct {
+		name string
+		want uint64
+		have uint64
+	}{
+		{name: "RSS Limit", want: 18446744073709551615, have: s.RSSLimit},
+		{name: "delayacct_blkio_ticks", want: 31, have: s.DelayAcctBlkIOTicks},
+	} {
+		if test.want != test.have {
+			t.Errorf("want %s %d, have %d", test.name, test.want, test.have)
+		}
+	}
+
+	// pid stat uint fields
+	for _, test := range []struct {
+		name string
+		want uint
+		have uint
+	}{
+		{name: "rt_priority", want: 0, have: s.RTPriority},
+		{name: "policy", want: 0, have: s.Policy},
+	} {
+		if test.want != test.have {
+			t.Errorf("want %s %d, have %d", test.name, test.want, test.have)
+		}
+	}
+}
+
+func TestProcStatLimits(t *testing.T) {
+	p, err := getProcFixtures(t).Proc(26232)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	s, err := p.Stat()
+	if err != nil {
+		t.Errorf("want not error, have %s", err)
+	}
+
+	// max values of stat int fields
+	for _, test := range []struct {
+		name string
+		want int
+		have int
+	}{
+		{name: "waited for children user time", want: math.MinInt64, have: s.CUTime},
+		{name: "waited for children system time", want: math.MaxInt64, have: s.CSTime},
 	} {
 		if test.want != test.have {
 			t.Errorf("want %s %d, have %d", test.name, test.want, test.have)
